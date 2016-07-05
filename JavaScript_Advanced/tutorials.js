@@ -1,7 +1,5 @@
-function foo(){
-  this.baz = "baz";
-  console.log(this.bar + " " + baz);
+for(var i=1; i <=5 ; i++ ){
+  setTimeout(function(){
+      console.log("i: "+i)
+  });
 }
-
-var bar = "bar";
-var baz = new foo();
