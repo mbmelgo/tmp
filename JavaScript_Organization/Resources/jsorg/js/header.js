@@ -1,19 +1,30 @@
-$(document).ready(function(){
+var Header = (function (){
 
-  var $modal = $("[rel='js-modal']")
+  function headerLinkClicks(evt){
+      evt.preventDefault();
+      evt.stopPropagation();
+      evt.stopImmediatePropagation();
 
-  $("[rel='js-control']").on("click","[rel*='js-']",function(evt){
-    evt.preventDefault();
-    evt.stopPropagation();
-    evt.stopImmediatePropagation();
+      var url = $(evt.target).attr("href");
 
-    var url = $(evt.target).attr("href");
+      $.ajax(url,{ dataType: "text"})
+      .then(function(contents){
+        $modal.html(contents).show();
+      });
+  }
 
-    $.ajax(url,{ dataType: "text"})
-    .then(function(contents){
-      $modal.html(contents).show();
-    });
+  function init() {
+      $modal = $("[rel='js-modal']");
 
-  });
+      $("[rel='js-controls']").on("click","[rel*='js-']",headerLinkClicks);
+  }
 
-});
+  var $modal;
+
+  EVT.on("init", init);
+
+  return {
+      init: init
+  };
+
+})();
